@@ -14,8 +14,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <button className="bg-green-500 w-20 h-20 rounded-full self-center">
-
+        <button className="bg-green-500 w-fit h-fit p-4 hover:opacity-80 rounded-full self-center flex justify-center">
+          <Image src={'/swap.svg'} width={20} height={20} alt="swap" />
         </button>
         <div className="flex flex-col border h-20 border-green-500">
           <p className="text-xl relative left-4">To</p>
