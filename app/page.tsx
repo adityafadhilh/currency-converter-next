@@ -3,7 +3,8 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl mb-8 font-bold text-black">Convert 10 USD to IDR</h1>
+      <h1 className="text-4xl font-bold mb-4">Currency Converter</h1>
+      <h1 className="text-2xl mb-8 text-black">Convert 10 USD to IDR</h1>
       <div className="border border-green-500 md:w-1/2 h-fit space-y-4 rounded-4xl flex flex-col p-4">
         <div className="flex flex-col border h-20 border-green-500">
           <p className="text-xl relative left-4">From</p>
