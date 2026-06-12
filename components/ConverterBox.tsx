@@ -58,10 +58,6 @@ export default function ConverterBox() {
                             {currencyData && !currencyIsLoading && currencyData.currency.map((item: any) => {
                                 return <option key={item.iso_code} value={item.iso_code}>{item.iso_code} - {item.name}</option>
                             })}
-                            {/* <option value="USD">USD</option>
-                            <option value="IDR">IDR</option>
-                            <option value="EUR">EUR</option> */}
-                            {/* <option value="audi">Audi</option> */}
                         </select>
                     </div>
                 </div>
@@ -81,9 +77,6 @@ export default function ConverterBox() {
                     />
                     <div className="px-4">
                         <select className="max-w-24 md:max-w-64 text-ellipsis p-4" onChange={(e) => setToCurrency(e.target.value)} value={toCurrency}>
-                            {/* <option value="IDR">IDR</option>
-                            <option value="USD">USD</option>
-                            <option value="EUR">EUR</option> */}
                             {currencyData && !currencyIsLoading && currencyData.currency.map((item: any) => {
                                 return <option key={item.iso_code} value={item.iso_code}>{item.iso_code} - {item.name}</option>
                             })}
