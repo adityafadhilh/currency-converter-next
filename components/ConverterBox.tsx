@@ -7,7 +7,7 @@ import useSWR from "swr";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export const ConverterBox = () => {
+export default function ConverterBox() {
     const [fromCurrency, setFromCurrency] = useState<string>('USD');
     const [toCurrency, setToCurrency] = useState<string>('IDR');
 

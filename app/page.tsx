@@ -1,4 +1,4 @@
-import { ConverterBox } from "@/components/ConverterBox";
+import ConverterBox from "@/components/ConverterBox";
 import Image from "next/image";
 
 export default function Home() {
