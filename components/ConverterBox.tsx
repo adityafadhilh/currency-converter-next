@@ -11,6 +11,9 @@ export default function ConverterBox() {
     const [fromCurrency, setFromCurrency] = useState<string>('USD');
     const [toCurrency, setToCurrency] = useState<string>('IDR');
 
+    const [fromFocused, setFromFocused] = useState<boolean>(false);
+    const [toFocused, setToFocused] = useState<boolean>(false);
+
     const [from, setFrom] = useState<string>('');
     const [to, setTo] = useState<string>('');
 
@@ -26,6 +29,15 @@ export default function ConverterBox() {
     // useEffect(() => {
     //     setTo(currentRates ? (currentRates * Number(from)).toString() : "0.00");
     // }, [from]);
+
+    const formatCurrency = (val: number, currency: string) => {
+        if (!val || isNaN(val)) return "";
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency,
+            minimumFractionDigits: 0,
+        }).format(val);
+    };
 
     const handleSwapCurrency = () => {
         let temp = fromCurrency;
@@ -46,11 +58,21 @@ export default function ConverterBox() {
                 <p className="text-xl relative left-4">From</p>
                 <div className="flex flex-row justify-around items-center">
                     <TextInput
-                        onChange={(value) => {
-                            setFrom(value)
-                            setTo(currentRates && value ? (currentRates * Number(value)).toString() : "");
+                        onChange={(rawValue: string) => {
+                            const cleanValue = rawValue.replace(/[^0-9.]/g, "");
+
+                            setFrom(cleanValue);
+
+                            if (currentRates && cleanValue) {
+                                const calculated = currentRates * Number(cleanValue);
+                                setTo(calculated.toFixed(2));
+                            } else {
+                                setTo("");
+                            }
                         }}
-                        value={from}
+                        value={fromFocused ? from : formatCurrency(Number(from), fromCurrency)}
+                        onFocus={() => setFromFocused(true)}
+                        onBlur={() => setFromFocused(false)}
                     />
                     <div className="px-4">
                         {/* <p className="text-xl">USD</p> */}
@@ -69,11 +91,21 @@ export default function ConverterBox() {
                 <p className="text-xl relative left-4">To</p>
                 <div className="flex flex-row justify-around">
                     <TextInput
-                        onChange={(value) => {
-                            setTo(value)
-                            setFrom(currentRates && value ? (Number(value) / currentRates).toString() : "");
+                        onChange={(rawValue: string) => {
+                            const cleanValue = rawValue.replace(/[^0-9.]/g, "");
+
+                            setTo(cleanValue);
+
+                            if (currentRates && cleanValue) {
+                                const calculated = currentRates * Number(cleanValue);
+                                setFrom(calculated.toFixed(2));
+                            } else {
+                                setFrom("");
+                            }
                         }}
-                        value={to}
+                        value={toFocused ? to : formatCurrency(Number(to), toCurrency)}
+                        onFocus={() => setToFocused(true)}
+                        onBlur={() => setToFocused(false)}
                     />
                     <div className="px-4">
                         <select className="max-w-24 md:max-w-64 text-ellipsis p-4" onChange={(e) => setToCurrency(e.target.value)} value={toCurrency}>
