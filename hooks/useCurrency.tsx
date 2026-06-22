@@ -7,9 +7,6 @@ export const useCurrency = () => {
     const [fromCurrency, setFromCurrency] = useState<string>('USD');
     const [toCurrency, setToCurrency] = useState<string>('IDR');
 
-    const [from, setFrom] = useState<string>('');
-    const [to, setTo] = useState<string>('');
-
     const { data: rateData, error: rateError, isLoading: rateIsLoading } = useSWR(`/api/rate?from=${fromCurrency}&to=${toCurrency}`, fetcher);
 
     const { data: currencyData, error: currencyError, isLoading: currencyIsLoading } = useSWR(`/api/currency`, fetcher);
@@ -22,12 +19,6 @@ export const useCurrency = () => {
 
         toCurrency,
         setToCurrency,
-
-        from,
-        setFrom,
-
-        to,
-        setTo,
 
         currentRates,
         rateError,

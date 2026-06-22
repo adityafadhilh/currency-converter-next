@@ -12,10 +12,6 @@ export default function ConverterBox() {
         setFromCurrency,
         toCurrency,
         setToCurrency,
-        from,
-        setFrom,
-        to,
-        setTo,
         currentRates,
         rateError,
         rateIsLoading,
@@ -23,6 +19,9 @@ export default function ConverterBox() {
         currencyError,
         currencyIsLoading
     } = useCurrency();
+
+    const [from, setFrom] = useState<string>('');
+    const [to, setTo] = useState<string>('');
 
     const [fromFocused, setFromFocused] = useState<boolean>(false);
     const [toFocused, setToFocused] = useState<boolean>(false);
