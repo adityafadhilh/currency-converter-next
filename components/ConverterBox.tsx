@@ -1,43 +1,31 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { TextInput } from "./TextInput";
-import useSWR from "swr";
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+import { useCurrency } from "@/hooks/useCurrency";
+import { formatCurrency } from "@/helpers/formatCurrency";
 
 export default function ConverterBox() {
-    const [fromCurrency, setFromCurrency] = useState<string>('USD');
-    const [toCurrency, setToCurrency] = useState<string>('IDR');
+    const {
+        fromCurrency,
+        setFromCurrency,
+        toCurrency,
+        setToCurrency,
+        from,
+        setFrom,
+        to,
+        setTo,
+        currentRates,
+        rateError,
+        rateIsLoading,
+        currencyData,
+        currencyError,
+        currencyIsLoading
+    } = useCurrency();
 
     const [fromFocused, setFromFocused] = useState<boolean>(false);
     const [toFocused, setToFocused] = useState<boolean>(false);
-
-    const [from, setFrom] = useState<string>('');
-    const [to, setTo] = useState<string>('');
-
-    const { data: rateData, error: rateError, isLoading: rateIsLoading } = useSWR(`/api/rate?from=${fromCurrency}&to=${toCurrency}`, fetcher);
-
-    const { data: currencyData, error: currencyError, isLoading: currencyIsLoading } = useSWR(`/api/currency`, fetcher);
-
-    console.log(JSON.stringify(rateData));
-    console.log(JSON.stringify(currencyData));
-
-    const currentRates = rateData?.currency?.rate;
-
-    // useEffect(() => {
-    //     setTo(currentRates ? (currentRates * Number(from)).toString() : "0.00");
-    // }, [from]);
-
-    const formatCurrency = (val: number, currency: string) => {
-        if (!val || isNaN(val)) return "";
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency,
-            minimumFractionDigits: 0,
-        }).format(val);
-    };
 
     const handleSwapCurrency = () => {
         let temp = fromCurrency;
