@@ -16,6 +16,7 @@ export const TextInput = ({onChange, value, onBlur, onFocus}: TextInputProps) =>
             value={value}
             onFocus={onFocus}
             onBlur={onBlur}
+            placeholder=""
         />
     )
 }
