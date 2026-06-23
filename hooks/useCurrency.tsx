@@ -13,8 +13,6 @@ export const useCurrency = () => {
 
     const currentRates = rateData?.currency?.rate;
 
-    console.log(JSON.stringify(currencyData));
-
     return {
         fromCurrency,
         setFromCurrency,
